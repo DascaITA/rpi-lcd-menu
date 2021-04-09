@@ -6,6 +6,6 @@ class RpiTerminalSubMenu(RpiTerminalMenu):
         """
         Initialize SubMenu
         """
-        self.lcd = base_menu.lcd
+        #self.lcd = base_menu.lcd
 
         super(RpiTerminalMenu, self).__init__(base_menu)
