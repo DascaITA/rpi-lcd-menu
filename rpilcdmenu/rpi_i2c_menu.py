@@ -53,7 +53,7 @@ class RpiI2cMenu(BaseMenu):
                 i = 0
                 lines += 1
             else:
-                self.lcd.write(ord(char), True)
+                self.lcd.write(ord(char))
                 i = i + 1
 
             if i == 16:
