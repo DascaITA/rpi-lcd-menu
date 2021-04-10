@@ -49,15 +49,17 @@ class RpiI2cMenu(BaseMenu):
 
         for char in text:
             if char == '\n':
-                self.lcd.crlf() # next line
+                #self.lcd.crlf() # next line
                 i = 0
                 lines += 1
+                self.lcd.cursor_pos(lines,0)
             else:
                 self.lcd.write(ord(char))
                 i = i + 1
 
             if i == 16:
-                self.lcd.crlf()  # last char of the line
+                #self.lcd.crlf()  # last char of the line
+                self.lcd.cursor_pos(lines,0)
             elif lines == 2:
                 break
 
