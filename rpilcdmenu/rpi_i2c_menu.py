@@ -69,7 +69,7 @@ class RpiI2cMenu(BaseMenu):
         options = ">" + self.items[self.current_option].text
 
         if self.current_option + 1 < len(self.items):
-            self.message(self.items[self.current_option + 1].text,1)
+            self.message(self.items[self.current_option + 1].text,0)
         else:
-            self.message(self.items[0].text,0)
+            self.message(self.items[0].text,1)
         return self
