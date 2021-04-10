@@ -36,13 +36,34 @@ class RpiI2cMenu(BaseMenu):
 
         return self
 
-    def message(self, text, line):
+    def myMessage(self, text, line):
 
         self.lcd.cursor_pos = (line,0)
         self.lcd.write_string(text)
         return self
 
-    def displayTestScreen(self):
+    def message(self, text):
+        """ Send long string to LCD. 17th char wraps to second line"""
+        i = 0
+        lines = 0
+
+        for char in text:
+            if char == '\n':
+                self.lcd.write(0xC0)  # next line
+                i = 0
+                lines += 1
+            else:
+                self.lcd.write(ord(char), True)
+                i = i + 1
+
+            if i == 16:
+                self.lcd.write(0xC0)  # last char of the line
+            elif lines == 2:
+                break
+
+        return self
+
+    def myDisplayTestScreen(self):
         """
         Display test screen to see if your LCD screen is wokring
         """
@@ -50,8 +71,16 @@ class RpiI2cMenu(BaseMenu):
         self.message("test line 1", 1)
 
         return self
+    
+    def displayTestScreen(self):
+        """
+        Display test screen to see if your LCD screen is wokring
+        """
+        self.message('Hum. body 36,6\xDFC\nThis is test')
 
-    def render(self):
+        return self
+    
+    def myRender(self):
         """
         Render menu
         """
@@ -72,4 +101,32 @@ class RpiI2cMenu(BaseMenu):
             self.message(self.items[self.current_option + 1].text,0)
         else:
             self.message(self.items[0].text,1)
+        return self
+
+    def render(self):
+        """
+        Render menu
+        """
+        self.clearDisplay()
+
+        if len(self.items) == 0:
+            self.message('Menu is empty')
+            return self
+        elif len(self.items) <= 2:
+            options = (self.current_option == 0 and ">" or " ") + self.items[0].text
+            if len(self.items) == 2:
+                options += "\n" + (self.current_option == 1 and ">" or " ") + self.items[1].text
+            print(options)
+            self.message(options)
+            return self
+
+        options = ">" + self.items[self.current_option].text
+
+        if self.current_option + 1 < len(self.items):
+            options += "\n " + self.items[self.current_option + 1].text
+        else:
+            options += "\n " + self.items[0].text
+
+        self.message(options)
+
         return self
