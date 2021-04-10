@@ -36,36 +36,34 @@ class RpiI2cMenu(BaseMenu):
 
         return self
 
-    def myMessage(self, text, line):
+    def message(self, text, line):
 
         self.lcd.cursor_pos = (line,0)
         self.lcd.write_string(text)
         return self
 
-    def message(self, text):
+    def defMessage(self, text):
         """ Send long string to LCD. 17th char wraps to second line"""
         i = 0
         lines = 0
 
         for char in text:
             if char == '\n':
-                #self.lcd.crlf() # next line
+                self.lcd.crlf() # next line
                 i = 0
                 lines += 1
-                self.lcd.cursor_pos(lines,0)
             else:
                 self.lcd.write(ord(char))
                 i = i + 1
 
             if i == 16:
-                #self.lcd.crlf()  # last char of the line
-                self.lcd.cursor_pos(lines,0)
+                self.lcd.crlf()  # last char of the line
             elif lines == 2:
                 break
 
         return self
 
-    def myDisplayTestScreen(self):
+    def displayTestScreen(self):
         """
         Display test screen to see if your LCD screen is wokring
         """
@@ -74,7 +72,7 @@ class RpiI2cMenu(BaseMenu):
 
         return self
     
-    def displayTestScreen(self):
+    def defDisplayTestScreen(self):
         """
         Display test screen to see if your LCD screen is wokring
         """
@@ -82,7 +80,7 @@ class RpiI2cMenu(BaseMenu):
 
         return self
     
-    def myRender(self):
+    def render(self):
         """
         Render menu
         """
@@ -100,12 +98,12 @@ class RpiI2cMenu(BaseMenu):
         options = ">" + self.items[self.current_option].text
 
         if self.current_option + 1 < len(self.items):
-            self.message(self.items[self.current_option + 1].text,0)
+            self.message(self.items[self.current_option + 1].text,1)
         else:
             self.message(self.items[0].text,1)
         return self
 
-    def render(self):
+    def defRender(self):
         """
         Render menu
         """
