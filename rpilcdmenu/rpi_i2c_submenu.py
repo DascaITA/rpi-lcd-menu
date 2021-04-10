@@ -1,4 +1,4 @@
-from rpilcdmenu import Rpii2cMenu
+from rpilcdmenu import RpiI2cMenu
 
 
 class RpiI2cSubMenu(RpiI2cMenu):
