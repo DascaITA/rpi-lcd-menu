@@ -36,13 +36,13 @@ class RpiI2cMenu(BaseMenu):
 
         return self
 
-    def myMessage(self, text, line):
+    def message(self, text, line):
 
         self.lcd.cursor_pos = (line,0)
         self.lcd.write_string(text)
         return self
 
-    def message(self, text):
+    def defMessage(self, text):
         """ Send long string to LCD. 17th char wraps to second line"""
         i = 0
         lines = 0
@@ -80,7 +80,7 @@ class RpiI2cMenu(BaseMenu):
 
         return self
     
-    def myRender(self):
+    def render(self):
         """
         Render menu
         """
@@ -90,12 +90,12 @@ class RpiI2cMenu(BaseMenu):
             self.message('Menu is empty',0)
             return self
         elif len(self.items) <= 2:
-            self.message((self.current_option == 0 and ">" or " ") + self.items[0].text.ljust(15),1)
+            self.message((self.current_option == 0 and ">" or " ") + self.items[0].text.ljust(15),0)
             if len(self.items) == 2:
                 self.message((self.current_option == 1 and ">" or " ") + self.items[1].text.ljust(15),1)
             return self
 
-        self.message(">" + self.items[self.current_option].text.ljust(15),0)
+        self.message(">" + self.items[self.current_option].text.ljust(15),1)
 
         if self.current_option + 1 < len(self.items):
             self.message(self.items[self.current_option + 1].text.ljust(15),1)
@@ -103,7 +103,7 @@ class RpiI2cMenu(BaseMenu):
             self.message(self.items[0].text.ljust(15),0)
         return self
 
-    def render(self):
+    def defRender(self):
         """
         Render menu
         """
