@@ -98,9 +98,9 @@ class RpiI2cMenu(BaseMenu):
         option = ">" + self.items[self.current_option].text.ljust(15)
 
         if self.current_option + 1 < len(self.items):
-            self.message(self.items[self.current_option + 1].text.ljust(15),1)
+            self.message(option+self.items[self.current_option + 1].text.ljust(15),0)
         else:
-            self.message(self.items[0].text.ljust(15),0)
+            self.message(option+self.items[0].text.ljust(15),1)
         return self
 
     def defRender(self):
