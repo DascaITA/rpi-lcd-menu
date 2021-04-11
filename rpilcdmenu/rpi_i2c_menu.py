@@ -90,17 +90,17 @@ class RpiI2cMenu(BaseMenu):
             self.message('Menu is empty',0)
             return self
         elif len(self.items) <= 2:
-            self.message((self.current_option == 0 and ">" or " ") + self.items[0].text.ljust(16),0)
+            self.message((self.current_option == 0 and ">" or " ") + self.items[0].text.ljust(15),0)
             if len(self.items) == 2:
-                self.message((self.current_option == 1 and ">" or " ") + self.items[1].ljust(16).text,1)
+                self.message((self.current_option == 1 and ">" or " ") + self.items[1].text.ljust(15),1)
             return self
 
-        self.message(">" + self.items[self.current_option].text.ljust(16),0)
+        self.message(">" + self.items[self.current_option].text.ljust(15),0)
 
         if self.current_option + 1 < len(self.items):
-            self.message(self.items[self.current_option + 1].text.ljust(16),1)
+            self.message(self.items[self.current_option + 1].text.ljust(15),1)
         else:
-            self.message(self.items[0].text.ljust(16),0)
+            self.message(self.items[0].text.ljust(15),0)
         return self
 
     def defRender(self):
