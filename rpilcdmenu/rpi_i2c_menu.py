@@ -36,13 +36,13 @@ class RpiI2cMenu(BaseMenu):
 
         return self
 
-    def message(self, text, line):
+    def myMessage(self, text, line):
 
         self.lcd.cursor_pos = (line,0)
         self.lcd.write_string(text)
         return self
 
-    def defMessage(self, text):
+    def message(self, text):
         """ Send long string to LCD. 17th char wraps to second line"""
         i = 0
         lines = 0
@@ -80,7 +80,7 @@ class RpiI2cMenu(BaseMenu):
 
         return self
     
-    def render(self):
+    def myRender(self):
         """
         Render menu
         """
@@ -103,7 +103,7 @@ class RpiI2cMenu(BaseMenu):
             self.message(self.items[0].text.ljust(15),0)
         return self
 
-    def defRender(self):
+    def render(self):
         """
         Render menu
         """
